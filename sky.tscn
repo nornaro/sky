@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://vp6kt3h0pdwx"]
+[gd_scene load_steps=21 format=3 uid="uid://vp6kt3h0pdwx"]
 
 [ext_resource type="Script" uid="uid://du70u80l780ru" path="res://sky.gd" id="1_gr5xt"]
 [ext_resource type="Script" uid="uid://brbrwm7jndhbt" path="res://install.gd" id="2_4krsh"]
@@ -7,7 +7,9 @@
 [ext_resource type="Script" uid="uid://1d7dma400y3m" path="res://apps.gd" id="5_lsyyi"]
 [ext_resource type="Script" uid="uid://btm56y2jhyodn" path="res://description.gd" id="5_xeklh"]
 [ext_resource type="Script" uid="uid://dhfvd0vk1rauw" path="res://versions.gd" id="6_aa7hk"]
+[ext_resource type="Script" uid="uid://b01w6g28bi2kf" path="res://control_3.gd" id="7_dw106"]
 [ext_resource type="Script" uid="uid://brpc2nlvmn55y" path="res://web_json.gd" id="8_kh8qe"]
+[ext_resource type="Script" uid="uid://nahucs20xyhq" path="res://2do.gd" id="10_o06a2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dptxg"]
 bg_color = Color(0.2702219, 0.27022195, 0.27022177, 1)
@@ -38,8 +40,19 @@ font_names = PackedStringArray("DejaVu Sans Mono")
 [sub_resource type="SystemFont" id="SystemFont_xeklh"]
 font_names = PackedStringArray("DejaVu Sans Mono")
 
+[sub_resource type="Animation" id="Animation_dw106"]
+resource_name = "in"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o06a2"]
+_data = {
+&"in": SubResource("Animation_dw106")
+}
+
 [sub_resource type="SystemFont" id="SystemFont_lsyyi"]
 font_names = PackedStringArray("Fantasy")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dw106"]
+bg_color = Color(0.101240985, 0.101241, 0.10124094, 1)
 
 [node name="Sky" type="Control"]
 layout_mode = 3
@@ -50,7 +63,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gr5xt")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Main" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -58,7 +71,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,29 +79,29 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/VBoxContainer"]
 layout_mode = 2
 
-[node name="SearchBar" type="LineEdit" parent="Panel/VBoxContainer/HBoxContainer"]
+[node name="SearchBar" type="LineEdit" parent="Main/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 follow_focus = true
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 
-[node name="MenuBar" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer"]
+[node name="MenuBar" type="HBoxContainer" parent="Main/VBoxContainer/HBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 2
 alignment = 1
 
-[node name="MenuButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
+[node name="MenuButton" type="Button" parent="Main/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.88049585, 0.8804958, 0.88049585, 1)
@@ -98,7 +111,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dptxg")
 toggle_mode = true
 text = "Here"
 
-[node name="MenuButton2" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
+[node name="MenuButton2" type="Button" parent="Main/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.88049585, 0.8804958, 0.88049585, 1)
@@ -108,7 +121,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dptxg")
 toggle_mode = true
 text = "Should"
 
-[node name="MenuButton3" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
+[node name="MenuButton3" type="Button" parent="Main/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.88049585, 0.8804958, 0.88049585, 1)
@@ -118,7 +131,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dptxg")
 toggle_mode = true
 text = "Be"
 
-[node name="MenuButton4" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
+[node name="MenuButton4" type="Button" parent="Main/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.88049585, 0.8804958, 0.88049585, 1)
@@ -128,7 +141,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dptxg")
 toggle_mode = true
 text = "Categories"
 
-[node name="MenuButton5" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
+[node name="MenuButton5" type="Button" parent="Main/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.88049585, 0.8804958, 0.88049585, 1)
@@ -138,7 +151,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dptxg")
 toggle_mode = true
 text = "To"
 
-[node name="MenuButton6" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
+[node name="MenuButton6" type="Button" parent="Main/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.88049585, 0.8804958, 0.88049585, 1)
@@ -148,7 +161,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dptxg")
 toggle_mode = true
 text = "Pick"
 
-[node name="MenuButton7" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
+[node name="MenuButton7" type="Button" parent="Main/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.88049585, 0.8804958, 0.88049585, 1)
@@ -158,37 +171,37 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dptxg")
 toggle_mode = true
 text = "From"
 
-[node name="Label" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer"]
+[node name="Label" type="HBoxContainer" parent="Main/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Install" type="Button" parent="Panel/VBoxContainer/HBoxContainer/Label"]
+[node name="Install" type="Button" parent="Main/VBoxContainer/HBoxContainer/Label"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Install"
 script = ExtResource("2_4krsh")
 
-[node name="Update" type="Button" parent="Panel/VBoxContainer/HBoxContainer/Label"]
+[node name="Update" type="Button" parent="Main/VBoxContainer/HBoxContainer/Label"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Update"
 script = ExtResource("3_xeklh")
 
-[node name="Remove" type="Button" parent="Panel/VBoxContainer/HBoxContainer/Label"]
+[node name="Remove" type="Button" parent="Main/VBoxContainer/HBoxContainer/Label"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Remove"
 script = ExtResource("4_lsyyi")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Main/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Control" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer2" groups=["desc_hide"]]
+[node name="Control" type="ScrollContainer" parent="Main/VBoxContainer/HBoxContainer2" groups=["desc_hide"]]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Apps" type="ItemList" parent="Panel/VBoxContainer/HBoxContainer2/Control"]
+[node name="Apps" type="ItemList" parent="Main/VBoxContainer/HBoxContainer2/Control"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -196,22 +209,24 @@ size_flags_vertical = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 script = ExtResource("5_lsyyi")
 
-[node name="Control2" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer2" groups=["desc_hide"]]
+[node name="Control2" type="ScrollContainer" parent="Main/VBoxContainer/HBoxContainer2" groups=["desc_hide"]]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Versions" type="ItemList" parent="Panel/VBoxContainer/HBoxContainer2/Control2"]
+[node name="Versions" type="ItemList" parent="Main/VBoxContainer/HBoxContainer2/Control2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("6_aa7hk")
 
-[node name="Control3" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer2"]
+[node name="Control3" type="ScrollContainer" parent="Main/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("7_dw106")
 
-[node name="Description" type="RichTextLabel" parent="Panel/VBoxContainer/HBoxContainer2/Control3"]
+[node name="Description" type="RichTextLabel" parent="Main/VBoxContainer/HBoxContainer2/Control3"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -225,18 +240,43 @@ theme_override_fonts/mono_font = SubResource("SystemFont_xeklh")
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 autowrap_mode = 0
+tab_size = 24
 context_menu_enabled = true
 script = ExtResource("5_xeklh")
 
-[node name="WebJson" type="Node" parent="Panel/VBoxContainer/HBoxContainer2/Control3"]
+[node name="HTTPRequest" type="HTTPRequest" parent="Main/VBoxContainer/HBoxContainer2/Control3"]
 unique_name_in_owner = true
 script = ExtResource("8_kh8qe")
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="Label" type="Label" parent="Main/VBoxContainer/HBoxContainer2/Control3"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "D
+E
+S
+C
+R
+I
+P
+T
+I
+O
+N"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Main/VBoxContainer/HBoxContainer2/Control3"]
+libraries = {
+&"": SubResource("AnimationLibrary_o06a2")
+}
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Main/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Control2" type="Button" parent="Panel/VBoxContainer/HBoxContainer3"]
+[node name="Control2" type="Button" parent="Main/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0.0627451, 0.0627451, 0.0627451, 0.78431374)
@@ -246,7 +286,8 @@ theme_override_fonts/font = SubResource("SystemFont_lsyyi")
 text = "A"
 flat = true
 
-[node name="InfoBar" type="RichTextLabel" parent="Panel/VBoxContainer/HBoxContainer3"]
+[node name="InfoBar" type="RichTextLabel" parent="Main/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
@@ -258,11 +299,30 @@ scroll_following_visible_characters = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control" type="Button" parent="Panel/VBoxContainer/HBoxContainer3"]
+[node name="Control" type="Button" parent="Main/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 focus_mode = 0
 text = "⚙"
 flat = true
 icon_alignment = 1
 
-[connection signal="text_changed" from="Panel/VBoxContainer/HBoxContainer/SearchBar" to="Panel/VBoxContainer/HBoxContainer2/Control/Apps" method="_on_search_bar_text_changed"]
+[node name="Settings" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dw106")
+
+[node name="About" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="2DO" type="Node" parent="."]
+script = ExtResource("10_o06a2")
+
+[connection signal="text_changed" from="Main/VBoxContainer/HBoxContainer/SearchBar" to="Main/VBoxContainer/HBoxContainer2/Control/Apps" method="_on_search_bar_text_changed"]
