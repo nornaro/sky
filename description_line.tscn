@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c4eutdbpuel7c"]
+
+[node name="DescriptionLine" type="HBoxContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="RTL" type="RichTextLabel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1

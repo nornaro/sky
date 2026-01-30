@@ -1,0 +1,30 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Sky - Stuff Kept Yonder"
+run/main_scene="uid://vp6kt3h0pdwx"
+config/features=PackedStringArray("4.5")
+config/icon="uid://dnxbildplgtmk"
+
+[autoload]
+
+Global="*res://global.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="ignore"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
