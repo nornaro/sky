@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://c4eutdbpuel7c"]
 
-[ext_resource type="Script" uid="uid://dpfqq0n2nkemi" path="res://rtl.gd" id="1_alrff"]
+[ext_resource type="Script" uid="uid://c37uwxxhhh8eo" path="res://rtl.gd" id="1_alrff"]
 [ext_resource type="Texture2D" uid="uid://dn3qr5p4uyvx7" path="res://vecteezy_clipboard-icon-style_5729590.svg" id="1_n2o47"]
-[ext_resource type="Script" path="res://label.gd" id="2_frwis"]
+[ext_resource type="Script" uid="uid://cekjqrbsfmc7e" path="res://label.gd" id="2_frwis"]
 
 [sub_resource type="Animation" id="Animation_uau7l"]
 length = 0.001
