@@ -20,3 +20,5 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ## 👥 Credits
 * Created by **stevepine** (Fenyő István) aka sugo 
 * Special thanks to the Godot and Soar!
+<img width="1152" height="648" alt="image" src="https://github.com/user-attachments/assets/6db6bb19-4a06-4274-92e9-9acac38c0637" />
+<img width="1152" height="648" alt="image" src="https://github.com/user-attachments/assets/b259bd79-d773-4880-9c84-c02aaf40cc2a" />
