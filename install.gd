@@ -16,6 +16,7 @@ func _on_pressed() -> void:
 		if current_pid != -1:
 			OS.kill(current_pid)
 			info_bar.text = "[color=red]Attempting to cancel...[/color]"
+			is_installing = false
 		return
 
 	if apps.get_selected_items().is_empty(): return
@@ -30,15 +31,15 @@ func _on_pressed() -> void:
 	info_bar.text = "[color=Darkorange]Installing: " + pkg_name + "#" + pkg_id + "[/color]"
 
 	var task_data = {
-		"name": pkg_name,
-		"id": pkg_id,
+		"pkg_name": pkg_name,
+		"pkg_id": pkg_id,
 		"app_idx": app_idx,
 		"ver_idx": selected
 	}
 	WorkerThreadPool.add_task(_do_install_background.bind(task_data))
 
 func _do_install_background(data: Dictionary):
-	var pkg_full_name = data.name + "#" + data.id
+	var pkg_full_name = data.pkg_name + "#" + data.pkg_id
 	current_pid = OS.create_process(Global.soar_path, ["i", pkg_full_name, "-y", "-q", "--no-color", "--portable"])
 	
 	if current_pid == -1:
@@ -51,28 +52,32 @@ func _do_install_background(data: Dictionary):
 		OS.delay_msec(200)
 		
 	var attempts = 0
-	var is_verified = false
 	while attempts < 10:
 		attempts += 1
 		var check_output = []
-		OS.execute("bash", ["-c", "soar info --no-color | grep " + data.name], check_output, true)
+		OS.execute("bash", ["-c", "soar info --no-color | grep " + data.pkg_name], check_output, true)
 		
-		if not check_output.is_empty() and check_output[0].contains(data.name):
-			is_verified = true
+		if not check_output.is_empty() and check_output[0].contains(data.pkg_name):
 			break
 		OS.delay_msec(500)
-	
-	data["success"] = is_verified
+	data["success"] = Global.get_installed()
 	call_deferred("_finalize_install_ui", data)
 
 func _finalize_install_ui(data: Dictionary):
-	is_installing = false
-	current_pid = -1
 	text = "Install"
+	current_pid = -1
+	if !is_installing:
+		info_bar.text = "[color=grey]Installation cancelled.[/color]"
+		if data["success"] or Global.installed.get(data.pkg_name,data.pkg_id):
+			data["version_indices"] = [data.ver_idx]
+			get_tree().get_first_node_in_group("Remove")._do_remove_background(data)
+		return
+	is_installing = false
 	
+	data["success"] = Global.get_installed()
 	if data.success:
 		versions.set_item_custom_bg_color(data.ver_idx, Color.DARK_SLATE_GRAY)
 		apps.set_item_custom_bg_color(data.app_idx, Color.DARK_SLATE_GRAY)
-		info_bar.text = "[color=Darkgreen]Successfully Installed: " + data.name + "[/color]"
+		info_bar.text = "[color=green]Successfully Installed: " + data.pkg_name + "[/color]"
 		return
-	info_bar.text = "[color=red]Installation failed or cancelled.[/color]"
+	info_bar.text = "[color=red]Installation failed.[/color]"

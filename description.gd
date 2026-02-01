@@ -28,8 +28,6 @@ const FORMATTERS = {
 func _ready() -> void:
 	link_regex.compile("^[a-z][a-z0-9+.-]*$")
 	meta_clicked.connect(_on_link_clicked)
-	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
 	versions.item_selected.connect(_on_version_selected)
 
 func _on_mouse_entered() -> void: get_tree().call_group("desc_hide", "hide")
@@ -65,7 +63,8 @@ func _create_ui_row(key: String, txt: String) -> void:
 	
 	var rtl: RichTextLabel = instance.get_node("RTL")
 	rtl.bbcode_enabled = true
-	rtl.text = txt.strip_edges()
+	rtl.tooltip_text = txt.strip_edges()
+	rtl.text = txt.replace(", ",",\n").strip_edges()
 	
 	if not rtl.meta_clicked.is_connected(_on_link_clicked):
 		rtl.meta_clicked.connect(_on_link_clicked)

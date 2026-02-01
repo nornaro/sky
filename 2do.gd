@@ -2,8 +2,7 @@ extends Node
 
 
 """
-installed not working correctly without restart
-install feadback is fake
+updateing single package doesn't work
 themes :)
 settings
 about

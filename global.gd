@@ -36,9 +36,6 @@ func get_installed() -> bool:
 		if not trimmed.begins_with("{"): continue
 		if not trimmed.contains("pkg_name"): continue
 		var json = JSON.parse_string(trimmed)
-		print(json.pkg_name)
-		if json.pkg_name == "7z":
-			print(json.pkg_name)
 		for ver:String in soar_db[json.pkg_name].keys():
 			var dict:Dictionary = soar_db[json.pkg_name][ver]
 			if !(dict.repo_name == json.repo_name
@@ -50,4 +47,4 @@ func get_installed() -> bool:
 				"repo_name":json.repo_name,
 				"pkg_name":json.pkg_name,
 			}
-	return false
+	return true

@@ -71,6 +71,7 @@ size_flags_vertical = 2
 [node name="Label" type="Button" parent="."]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_vertical = 0
 focus_mode = 0
 mouse_filter = 1
 text = "Copied to clipboard"
