@@ -3,9 +3,11 @@ extends RichTextLabel
 var container: VBoxContainer
 var description_line: PackedScene = preload("res://description_line.tscn")
 @onready var versions: ItemList = %Versions
-@onready var app: ItemList = %Apps
+@onready var apps: ItemList = %Apps
 
 var link_regex = RegEx.new()
+var selected = 0
+@onready var icon = preload("res://Sky.png")
 
 const FORMATTERS = {
 	"Pkg": "_fmt_header",
@@ -35,16 +37,26 @@ func _on_mouse_exited() -> void: get_tree().call_group("desc_hide", "show")
 func _on_link_clicked(meta: Variant) -> void: OS.shell_open(str(meta))
 
 func _on_version_selected(index: int) -> void:
+	selected = index
+	%Description.text = ""
 	if is_instance_valid(container):
 		container.queue_free()
-	if Global.current_db.is_empty() or index < 0 or index >= Global.current_db.size():
-		return
 	container = VBoxContainer.new()
-	add_sibling(container)
-	var item_info = JSON.parse_string(Global.current_db[index])
-	%HTTPRequest.load_app_details(item_info.pkg_name, item_info.pkg_webpage)
-	var selected_app: Dictionary = Global.soar_db[item_info.pkg_name].values()[index]
-
+	%Details.add_child(container)
+	if apps.get_selected_items().is_empty():
+		return
+	var pkg_name = apps.get_item_text(apps.get_selected_items()[0])
+	var version = versions.get_item_text(selected)
+	var save_dir = OS.get_executable_path().get_base_dir().path_join("icons")
+	if !Global.soar_db.has(pkg_name):return
+	if !Global.soar_db[pkg_name].has(version):return
+	Global.soar_db[pkg_name][version]["saved_icon"] = {"default":icon}
+	if FileAccess.file_exists(save_dir+"/"+pkg_name+".res"):
+		Global.soar_db[pkg_name][version]["saved_icon"] = {pkg_name:load(save_dir+"/"+pkg_name+".res")}
+	if !Global.soar_db[pkg_name][version].has("pkg_webpage"):return
+	%HTTPRequest.load_app_details(pkg_name, Global.soar_db[pkg_name][version].pkg_webpage)
+	await %HTTPRequest.details_loaded
+	var selected_app: Dictionary = Global.soar_db[pkg_name].values()[index]
 	for key in selected_app.keys():
 		var val = selected_app[key]
 		if FORMATTERS.has(key) and has_method(FORMATTERS[key]):
@@ -55,8 +67,11 @@ func _on_version_selected(index: int) -> void:
 		_create_ui_row(key, txt_default)
 
 func _create_ui_row(key: String, txt: String) -> void:
-	if (key.to_lower() == "level" or 
-		key.to_lower() == "message"): return
+	if key.to_lower() == "level":return
+	if key.to_lower() == "message":return
+	match key.to_lower():
+		"description","category","notes","homepages":
+			text += txt + "\n\n"
 	var instance = description_line.instantiate()
 	container.add_child(instance)
 	instance.get_node("Label").text = key.capitalize()

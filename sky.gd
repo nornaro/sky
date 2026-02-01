@@ -4,37 +4,23 @@ var metadata_db = {}
 @onready var apps:ItemList = %Apps
 @onready var versions:ItemList = %Versions
 @onready var description:RichTextLabel = %Description
+@onready var apps_list:ScrollContainer = %AppList
 
 func _ready() -> void:
+	Global.soar_task_finished.connect(_on_soar_task_finished)
 	if !check_appstreamcli():
 		push_error("appstreamcli not found.")
 		return
 	
-	parse_soar_json()
-	Global.get_installed() 
+	Global.parse_soar_json(name, 0, {})
+
+func _on_soar_task_finished(_type:String, pid:int,_data:Dictionary) -> void:
+	if pid != 0: return
 	for app in Global.soar_db.keys():
 		apps.add_item(app)
 		if !Global.installed.has(app):
 			continue
 		apps.set_item_custom_bg_color(apps.item_count-1,Color.DARK_SLATE_GRAY)
-
-func parse_soar_json() -> void:
-	var output = []
-	var err = OS.execute(Global.soar_path , ["list", "-j", "--no-color"], output)
-	var lines = output[0].split("\n")
-	if err: 
-		push_error("ERROR: ",err, " Loading fallback soar.json")
-		lines = FileAccess.get_file_as_string("res://soar.json").split("\n")
-		
-	for line:String in lines:
-		var trimmed = line.strip_edges()
-		if trimmed == "" or !trimmed.begins_with("{"): continue
-		
-		var json_data:Dictionary = JSON.parse_string(trimmed)
-		if !json_data is Dictionary or !json_data.has("pkg_name"):
-			continue
-		Global.add(json_data)
-			
 
 
 func load_fallback() -> void:

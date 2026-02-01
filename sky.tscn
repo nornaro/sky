@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://vp6kt3h0pdwx"]
+[gd_scene load_steps=41 format=3 uid="uid://vp6kt3h0pdwx"]
 
 [ext_resource type="Script" uid="uid://du70u80l780ru" path="res://sky.gd" id="1_gr5xt"]
 [ext_resource type="Script" uid="uid://brbrwm7jndhbt" path="res://install.gd" id="2_4krsh"]
@@ -8,15 +8,16 @@
 [ext_resource type="Script" uid="uid://1d7dma400y3m" path="res://apps.gd" id="5_lsyyi"]
 [ext_resource type="Script" uid="uid://btm56y2jhyodn" path="res://description.gd" id="5_xeklh"]
 [ext_resource type="Script" uid="uid://dhfvd0vk1rauw" path="res://versions.gd" id="6_aa7hk"]
-[ext_resource type="Script" uid="uid://b01w6g28bi2kf" path="res://control_3.gd" id="7_dw106"]
+[ext_resource type="Script" uid="uid://b8klm2ftvhqgu" path="res://app_list.gd" id="6_mxtae"]
+[ext_resource type="Script" uid="uid://cudqyeefdq4ff" path="res://run.gd" id="7_hp7ek"]
 [ext_resource type="Script" uid="uid://brpc2nlvmn55y" path="res://web_json.gd" id="8_kh8qe"]
 [ext_resource type="Script" uid="uid://nahucs20xyhq" path="res://2do.gd" id="10_o06a2"]
-[ext_resource type="Script" uid="uid://dda48bemrms01" path="res://trigger_b.gd" id="11_mxtae"]
 [ext_resource type="Script" uid="uid://cibhyhwv4gpvc" path="res://window_button.gd" id="12_00u2l"]
 [ext_resource type="Script" uid="uid://cguddyoxe01ma" path="res://settings.gd" id="12_g2g78"]
-[ext_resource type="Script" uid="uid://da41w0gpqfeqf" path="res://trigger_a.gd" id="12_mxtae"]
 [ext_resource type="Script" uid="uid://ynp43rxbrssn" path="res://about.gd" id="13_tlsao"]
+[ext_resource type="Script" uid="uid://dcc7db8nrqxr4" path="res://button.gd" id="14_hp7ek"]
 [ext_resource type="Script" uid="uid://caviuiqfbopuo" path="res://close.gd" id="14_mxtae"]
+[ext_resource type="Script" uid="uid://cejhhxicffh12" path="res://markdown_label.gd" id="16_mng0x"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3ustv"]
 texture = ExtResource("2_78l40")
@@ -40,7 +41,10 @@ bg_color = Color(0, 0, 0, 0.5882353)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_78l40"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_78l40"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tij5r"]
+bg_color = Color(0, 0, 0, 0.5882353)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jytix"]
 bg_color = Color(0, 0, 0, 0.5882353)
 
 [sub_resource type="SystemFont" id="SystemFont_gr5xt"]
@@ -58,6 +62,12 @@ font_names = PackedStringArray("DejaVu Sans Mono")
 [sub_resource type="SystemFont" id="SystemFont_xeklh"]
 font_names = PackedStringArray("DejaVu Sans Mono")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vfda5"]
+bg_color = Color(0, 0, 0, 0.5882353)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_78l40"]
+bg_color = Color(0, 0, 0, 0.5882353)
+
 [sub_resource type="Animation" id="Animation_dw106"]
 resource_name = "in"
 
@@ -66,12 +76,8 @@ _data = {
 &"in": SubResource("Animation_dw106")
 }
 
-[sub_resource type="InputEventKey" id="InputEventKey_mxtae"]
-device = -1
-keycode = 4194305
-
-[sub_resource type="Shortcut" id="Shortcut_hp7ek"]
-events = [SubResource("InputEventKey_mxtae")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tlsao"]
+bg_color = Color(1, 1, 1, 0.5882353)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxtae"]
 bg_color = Color(0, 0, 0, 0.5882353)
@@ -101,7 +107,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gr5xt")
 
-[node name="Main" type="Panel" parent="."]
+[node name="ThemeB" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -110,7 +116,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_3ustv")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Main"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ThemeB"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -118,29 +124,29 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Main/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ThemeB/VBoxContainer"]
 layout_mode = 2
 
-[node name="SearchBar" type="LineEdit" parent="Main/VBoxContainer/HBoxContainer"]
+[node name="SearchBar" type="LineEdit" parent="ThemeB/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Main/VBoxContainer/HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="ThemeB/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 follow_focus = true
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 
-[node name="MenuBar" type="HBoxContainer" parent="Main/VBoxContainer/HBoxContainer/ScrollContainer"]
+[node name="MenuBar" type="HBoxContainer" parent="ThemeB/VBoxContainer/HBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 2
 alignment = 1
 
-[node name="MenuButton" type="Button" parent="Main/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
+[node name="MenuButton" type="Button" parent="ThemeB/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.88049585, 0.8804958, 0.88049585, 1)
@@ -150,7 +156,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dptxg")
 toggle_mode = true
 text = "Here"
 
-[node name="MenuButton2" type="Button" parent="Main/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
+[node name="MenuButton2" type="Button" parent="ThemeB/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.88049585, 0.8804958, 0.88049585, 1)
@@ -160,7 +166,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dptxg")
 toggle_mode = true
 text = "Should"
 
-[node name="MenuButton3" type="Button" parent="Main/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
+[node name="MenuButton3" type="Button" parent="ThemeB/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.88049585, 0.8804958, 0.88049585, 1)
@@ -170,7 +176,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dptxg")
 toggle_mode = true
 text = "Be"
 
-[node name="MenuButton4" type="Button" parent="Main/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
+[node name="MenuButton4" type="Button" parent="ThemeB/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.88049585, 0.8804958, 0.88049585, 1)
@@ -180,7 +186,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dptxg")
 toggle_mode = true
 text = "Categories"
 
-[node name="MenuButton5" type="Button" parent="Main/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
+[node name="MenuButton5" type="Button" parent="ThemeB/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.88049585, 0.8804958, 0.88049585, 1)
@@ -190,7 +196,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dptxg")
 toggle_mode = true
 text = "To"
 
-[node name="MenuButton6" type="Button" parent="Main/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
+[node name="MenuButton6" type="Button" parent="ThemeB/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.88049585, 0.8804958, 0.88049585, 1)
@@ -200,7 +206,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dptxg")
 toggle_mode = true
 text = "Pick"
 
-[node name="MenuButton7" type="Button" parent="Main/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
+[node name="MenuButton7" type="Button" parent="ThemeB/VBoxContainer/HBoxContainer/ScrollContainer/MenuBar"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.88049585, 0.8804958, 0.88049585, 1)
@@ -210,38 +216,22 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dptxg")
 toggle_mode = true
 text = "From"
 
-[node name="Label" type="HBoxContainer" parent="Main/VBoxContainer/HBoxContainer"]
+[node name="Label" type="LineEdit" parent="ThemeB/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Install" type="Button" parent="Main/VBoxContainer/HBoxContainer/Label" groups=["Install"]]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Install"
-script = ExtResource("2_4krsh")
-
-[node name="Update" type="Button" parent="Main/VBoxContainer/HBoxContainer/Label" groups=["Update"]]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Update"
-script = ExtResource("3_xeklh")
-
-[node name="Remove" type="Button" parent="Main/VBoxContainer/HBoxContainer/Label" groups=["Remove"]]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Remove"
-script = ExtResource("4_lsyyi")
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="Main/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ThemeB/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Control" type="ScrollContainer" parent="Main/VBoxContainer/HBoxContainer2" groups=["desc_hide"]]
+[node name="AppList" type="ScrollContainer" parent="ThemeB/VBoxContainer/HBoxContainer2" groups=["desc_hide"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(380, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_3ustv")
+script = ExtResource("6_mxtae")
 
-[node name="Apps" type="ItemList" parent="Main/VBoxContainer/HBoxContainer2/Control"]
+[node name="Apps" type="ItemList" parent="ThemeB/VBoxContainer/HBoxContainer2/AppList" groups=["Apps"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -251,36 +241,85 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/panel = SubResource("StyleBoxEmpty_78l40")
 script = ExtResource("5_lsyyi")
 
-[node name="Control2" type="ScrollContainer" parent="Main/VBoxContainer/HBoxContainer2" groups=["desc_hide"]]
+[node name="Control2" type="ScrollContainer" parent="ThemeB/VBoxContainer/HBoxContainer2" groups=["desc_hide"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_3ustv")
 
-[node name="Versions" type="ItemList" parent="Main/VBoxContainer/HBoxContainer2/Control2"]
-unique_name_in_owner = true
+[node name="HSplitContainer" type="VBoxContainer" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2/HSplitContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="TextureRectPanel" type="PanelContainer" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2/HSplitContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tij5r")
+
+[node name="AppIcon" type="TextureRect" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2/HSplitContainer/HBoxContainer/TextureRectPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Versions" type="ItemList" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2/HSplitContainer/HBoxContainer" groups=["Versions"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 focus_mode = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/guide_color = Color(0, 0, 0, 0.2509804)
 theme_override_constants/line_separation = 10
-theme_override_styles/panel = SubResource("StyleBoxEmpty_78l40")
+theme_override_styles/panel = SubResource("StyleBoxFlat_jytix")
 script = ExtResource("6_aa7hk")
 
-[node name="Control3" type="ScrollContainer" parent="Main/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(40, 0)
+[node name="ButtonsPanel" type="PanelContainer" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2/HSplitContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tij5r")
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2/HSplitContainer/HBoxContainer/ButtonsPanel"]
+layout_mode = 2
+alignment = 1
+
+[node name="Install" type="Button" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2/HSplitContainer/HBoxContainer/ButtonsPanel/ButtonsContainer" groups=["Install"]]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_78l40")
-draw_focus_border = true
-horizontal_scroll_mode = 3
-vertical_scroll_mode = 3
-script = ExtResource("7_dw106")
+size_flags_vertical = 3
+text = "Install"
+script = ExtResource("2_4krsh")
 
-[node name="Description" type="RichTextLabel" parent="Main/VBoxContainer/HBoxContainer2/Control3"]
+[node name="Run" type="Button" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2/HSplitContainer/HBoxContainer/ButtonsPanel/ButtonsContainer" groups=["Install"]]
 unique_name_in_owner = true
-visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Run"
+script = ExtResource("7_hp7ek")
+
+[node name="Update" type="Button" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2/HSplitContainer/HBoxContainer/ButtonsPanel/ButtonsContainer" groups=["Update"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Update"
+script = ExtResource("3_xeklh")
+
+[node name="Remove" type="Button" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2/HSplitContainer/HBoxContainer/ButtonsPanel/ButtonsContainer" groups=["Remove"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Remove"
+script = ExtResource("4_lsyyi")
+
+[node name="Description" type="RichTextLabel" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2/HSplitContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -290,50 +329,58 @@ theme_override_fonts/bold_italics_font = SubResource("SystemFont_py8sg")
 theme_override_fonts/italics_font = SubResource("SystemFont_4krsh")
 theme_override_fonts/mono_font = SubResource("SystemFont_xeklh")
 theme_override_font_sizes/normal_font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_vfda5")
 bbcode_enabled = true
-autowrap_mode = 0
 tab_size = 24
 context_menu_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1
 script = ExtResource("5_xeklh")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="Main/VBoxContainer/HBoxContainer2/Control3"]
+[node name="Details" type="ScrollContainer" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2/HSplitContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_78l40")
+draw_focus_border = true
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+
+[node name="DetailsT" type="Control" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2/HSplitContainer/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HTTPRequest" type="HTTPRequest" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2/HSplitContainer/Details"]
 unique_name_in_owner = true
 script = ExtResource("8_kh8qe")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Main/VBoxContainer/HBoxContainer2/Control3"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2/HSplitContainer/Details"]
 libraries = {
 &"": SubResource("AnimationLibrary_o06a2")
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Main/VBoxContainer/HBoxContainer2/Control3"]
+[node name="Button" type="Button" parent="ThemeB/VBoxContainer/HBoxContainer2/Control2/HSplitContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_tlsao")
+toggle_mode = true
+text = "^^^"
+clip_text = true
+script = ExtResource("14_hp7ek")
 
-[node name="TriggerB" type="Button" parent="Main/VBoxContainer/HBoxContainer2/Control3/HBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(32, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 1
-disabled = true
-button_mask = 0
-shortcut = SubResource("Shortcut_hp7ek")
-script = ExtResource("11_mxtae")
-
-[node name="TriggerA" type="Control" parent="Main/VBoxContainer/HBoxContainer2/Control3/HBoxContainer"]
-custom_minimum_size = Vector2(32, 0)
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 3
-script = ExtResource("12_mxtae")
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="Main/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="ThemeB/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="About" type="Button" parent="Main/VBoxContainer/HBoxContainer3"]
+[node name="About" type="Button" parent="ThemeB/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 focus_mode = 0
@@ -341,7 +388,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_mxtae")
 text = "?"
 script = ExtResource("12_00u2l")
 
-[node name="InfoBar" type="RichTextLabel" parent="Main/VBoxContainer/HBoxContainer3"]
+[node name="InfoBar" type="RichTextLabel" parent="ThemeB/VBoxContainer/HBoxContainer3" groups=["InfoBar"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -355,7 +402,7 @@ scroll_following_visible_characters = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Settings" type="Button" parent="Main/VBoxContainer/HBoxContainer3"]
+[node name="Settings" type="Button" parent="ThemeB/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 focus_mode = 0
@@ -395,14 +442,31 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_g2g78")
 script = ExtResource("13_tlsao")
 
+[node name="RichTextLabel" type="RichTextLabel" parent="About"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+fit_content = true
+script = ExtResource("16_mng0x")
+
 [node name="Close" type="Button" parent="About"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
 shortcut = SubResource("Shortcut_tij5r")
+text = "Close"
 script = ExtResource("14_mxtae")
 
 [node name="2DO" type="Node" parent="."]
 script = ExtResource("10_o06a2")
 
-[connection signal="text_changed" from="Main/VBoxContainer/HBoxContainer/SearchBar" to="Main/VBoxContainer/HBoxContainer2/Control/Apps" method="_on_search_bar_text_changed"]
+[connection signal="text_changed" from="ThemeB/VBoxContainer/HBoxContainer/SearchBar" to="ThemeB/VBoxContainer/HBoxContainer2/AppList/Apps" method="_on_search_bar_text_changed"]

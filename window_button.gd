@@ -8,3 +8,4 @@ func _ready() -> void:
 
 func _on_pressed() -> void:
 	get_tree().call_group(name,"show")
+	get_tree().call_group("MarkdownLabel","_ready")

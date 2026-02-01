@@ -3,7 +3,7 @@ extends Button
 var is_installing: bool = false
 var current_pid: int = -1
 var selected: int = 0 
-
+var pink:bool = false
 @onready var apps: ItemList = %Apps
 @onready var versions: ItemList = %Versions
 @onready var info_bar: RichTextLabel = %InfoBar
@@ -14,6 +14,7 @@ func _ready():
 func _on_pressed() -> void:
 	if is_installing:
 		if current_pid != -1:
+			Global.call_deferred("parse_soar_cancel",current_pid)
 			OS.kill(current_pid)
 			info_bar.text = "[color=red]Attempting to cancel...[/color]"
 			is_installing = false
@@ -36,48 +37,16 @@ func _on_pressed() -> void:
 		"app_idx": app_idx,
 		"ver_idx": selected
 	}
+	_do_install(task_data)
+	
+func _do_install(task_data:Dictionary):
 	WorkerThreadPool.add_task(_do_install_background.bind(task_data))
-
+#
 func _do_install_background(data: Dictionary):
 	var pkg_full_name = data.pkg_name + "#" + data.pkg_id
 	current_pid = OS.create_process(Global.soar_path, ["i", pkg_full_name, "-y", "-q", "--no-color", "--portable"])
-	
-	if current_pid == -1:
-		data["success"] = false
-		data["error"] = "Failed to launch process"
-		call_deferred("_finalize_install_ui", data)
-		return
-
+	Global.waiting[current_pid] = [name,data]
+	if current_pid == -1: return
 	while OS.is_process_running(current_pid):
-		OS.delay_msec(200)
-		
-	var attempts = 0
-	while attempts < 10:
-		attempts += 1
-		var check_output = []
-		OS.execute("bash", ["-c", "soar info --no-color | grep " + data.pkg_name], check_output, true)
-		
-		if not check_output.is_empty() and check_output[0].contains(data.pkg_name):
-			break
-		OS.delay_msec(500)
-	data["success"] = Global.get_installed()
-	call_deferred("_finalize_install_ui", data)
-
-func _finalize_install_ui(data: Dictionary):
-	text = "Install"
-	current_pid = -1
-	if !is_installing:
-		info_bar.text = "[color=grey]Installation cancelled.[/color]"
-		if data["success"] or Global.installed.get(data.pkg_name,data.pkg_id):
-			data["version_indices"] = [data.ver_idx]
-			get_tree().get_first_node_in_group("Remove")._do_remove_background(data)
-		return
-	is_installing = false
-	
-	data["success"] = Global.get_installed()
-	if data.success:
-		versions.set_item_custom_bg_color(data.ver_idx, Color.DARK_SLATE_GRAY)
-		apps.set_item_custom_bg_color(data.app_idx, Color.DARK_SLATE_GRAY)
-		info_bar.text = "[color=green]Successfully Installed: " + data.pkg_name + "[/color]"
-		return
-	info_bar.text = "[color=red]Installation failed.[/color]"
+		OS.delay_msec(100)
+	Global.call_deferred("parse_soar_json",name, current_pid, data)
