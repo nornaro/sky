@@ -30,13 +30,13 @@ func _ready() -> void:
 	meta_clicked.connect(_on_link_clicked)
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
-	versions.item_selected.connect(_on_version_selected__)
+	versions.item_selected.connect(_on_version_selected)
 
 func _on_mouse_entered() -> void: get_tree().call_group("desc_hide", "hide")
 func _on_mouse_exited() -> void: get_tree().call_group("desc_hide", "show")
 func _on_link_clicked(meta: Variant) -> void: OS.shell_open(str(meta))
 
-func _on_version_selected__(index: int) -> void:
+func _on_version_selected(index: int) -> void:
 	if is_instance_valid(container):
 		container.queue_free()
 	if Global.current_db.is_empty() or index < 0 or index >= Global.current_db.size():

@@ -3,21 +3,26 @@ extends ItemList
 @onready var apps:ItemList = %Apps
 @onready var description:RichTextLabel = %Description
 @onready var webjson:Node = %HTTPRequest
+
+
+
 func _ready() -> void:
 	apps.item_clicked.connect(_on_apps_item_clicked)
 
 func _on_apps_item_clicked(index: int, _at_position: Vector2, _mouse_button_index: int) -> void:
 	clear()
 	query_info(apps.get_item_text(index))
-	var app = Global.soar_db[apps.get_item_text(index)].values()
-	
-	for json_data:Dictionary in app:
-		add_item(json_data.pkg_id)
-		if (Global.installed.has(apps.get_item_text(index)) and
-			Global.installed[apps.get_item_text(index)].pkg_id  == json_data.pkg_id):
-			apps.set_item_custom_bg_color(apps.item_count-1,Color.DARK_SLATE_GRAY)
-		set_item_tooltip(item_count-1, json_data.version)
-	description._on_version_selected__(0)
+	var json = Global.soar_db[apps.get_item_text(index)]
+	for value:Dictionary in json.values():
+		add_item(value.pkg_id)
+		set_item_tooltip(item_count-1, value.version)
+		var installed = Global.installed
+		if !Global.installed.has(value.pkg_name):
+			continue
+		if !Global.installed[value.pkg_name].has(value.pkg_id):
+			continue
+		set_item_custom_bg_color(item_count - 1, Color.DARK_SLATE_GRAY)
+	description._on_version_selected(0)
 
 func query_info(pkg_name) -> bool:
 	var output = []

@@ -2,7 +2,8 @@ extends Node
 
 
 """
-check and color installed
+installed not working correctly without restart
+install feadback is fake
 themes :)
 settings
 about

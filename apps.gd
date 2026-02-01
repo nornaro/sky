@@ -9,5 +9,6 @@ func _on_search_bar_text_changed(new_text: String) -> void:
 		add_item(app)
 		if !Global.installed.has(app):
 			continue
+
 		set_item_custom_bg_color(item_count - 1, Color.DARK_SLATE_GRAY)
 	

@@ -11,6 +11,7 @@ func _ready() -> void:
 		return
 	
 	parse_soar_json()
+	Global.get_installed() 
 	for app in Global.soar_db.keys():
 		apps.add_item(app)
 		if !Global.installed.has(app):
@@ -34,21 +35,7 @@ func parse_soar_json() -> void:
 			continue
 		Global.add(json_data)
 			
-func get_installed() -> void:
-	var output = []
-	var err = OS.execute(Global.soar_path, ["info", "-j", "--no-color"], output)
-	if err: push_error("ERROR: ",err, " Failed to read installed package list")
-	if output.is_empty():
-		return
-	var raw_text = output[0]
-	var lines = raw_text.split("\n", false)
-	
-	for line in lines:
-		var trimmed = line.strip_edges()
-		if not trimmed.begins_with("{"): continue
-		if not trimmed.contains("pkg_name"): continue
-		var json = JSON.parse_string(trimmed)
-		Global.installed[json.pkg_name.to_lower()] = json
+
 
 func load_fallback() -> void:
 	Global.soar_db = JSON.parse_string(FileAccess.get_file_as_string("res://soar.json"))

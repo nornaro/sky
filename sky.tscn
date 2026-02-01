@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://vp6kt3h0pdwx"]
+[gd_scene load_steps=33 format=3 uid="uid://vp6kt3h0pdwx"]
 
 [ext_resource type="Script" uid="uid://du70u80l780ru" path="res://sky.gd" id="1_gr5xt"]
 [ext_resource type="Script" uid="uid://brbrwm7jndhbt" path="res://install.gd" id="2_4krsh"]
+[ext_resource type="Texture2D" uid="uid://de2yaynt1bev" path="res://sky_theme:_1.png" id="2_78l40"]
 [ext_resource type="Script" uid="uid://cntheu38a3r47" path="res://update.gd" id="3_xeklh"]
 [ext_resource type="Script" uid="uid://cbh3vajo4bajj" path="res://remove.gd" id="4_lsyyi"]
 [ext_resource type="Script" uid="uid://1d7dma400y3m" path="res://apps.gd" id="5_lsyyi"]
@@ -10,6 +11,13 @@
 [ext_resource type="Script" uid="uid://b01w6g28bi2kf" path="res://control_3.gd" id="7_dw106"]
 [ext_resource type="Script" uid="uid://brpc2nlvmn55y" path="res://web_json.gd" id="8_kh8qe"]
 [ext_resource type="Script" uid="uid://nahucs20xyhq" path="res://2do.gd" id="10_o06a2"]
+[ext_resource type="Script" uid="uid://cibhyhwv4gpvc" path="res://window_button.gd" id="12_00u2l"]
+[ext_resource type="Script" uid="uid://cguddyoxe01ma" path="res://settings.gd" id="12_g2g78"]
+[ext_resource type="Script" uid="uid://ynp43rxbrssn" path="res://about.gd" id="13_tlsao"]
+[ext_resource type="Script" uid="uid://caviuiqfbopuo" path="res://close.gd" id="14_mxtae"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3ustv"]
+texture = ExtResource("2_78l40")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dptxg"]
 bg_color = Color(0.2702219, 0.27022195, 0.27022177, 1)
@@ -24,6 +32,14 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ustv"]
+bg_color = Color(0, 0, 0, 0.5882353)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_78l40"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_78l40"]
+bg_color = Color(0, 0, 0, 0.5882353)
 
 [sub_resource type="SystemFont" id="SystemFont_gr5xt"]
 font_names = PackedStringArray("DejaVu Sans Mono")
@@ -52,7 +68,17 @@ _data = {
 font_names = PackedStringArray("Fantasy")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dw106"]
-bg_color = Color(0.101240985, 0.101241, 0.10124094, 1)
+bg_color = Color(0.09803922, 0.09803922, 0.09803922, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_hp7ek"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_tij5r"]
+events = [SubResource("InputEventKey_hp7ek")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g2g78"]
+bg_color = Color(0.09803922, 0.09803922, 0.09803922, 1)
 
 [node name="Sky" type="Control"]
 layout_mode = 3
@@ -70,6 +96,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_3ustv")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Main"]
 layout_mode = 1
@@ -200,6 +227,7 @@ size_flags_vertical = 3
 [node name="Control" type="ScrollContainer" parent="Main/VBoxContainer/HBoxContainer2" groups=["desc_hide"]]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3ustv")
 
 [node name="Apps" type="ItemList" parent="Main/VBoxContainer/HBoxContainer2/Control"]
 unique_name_in_owner = true
@@ -207,23 +235,34 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_78l40")
 script = ExtResource("5_lsyyi")
 
 [node name="Control2" type="ScrollContainer" parent="Main/VBoxContainer/HBoxContainer2" groups=["desc_hide"]]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3ustv")
 
 [node name="Versions" type="ItemList" parent="Main/VBoxContainer/HBoxContainer2/Control2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/guide_color = Color(0, 0, 0, 0.2509804)
+theme_override_constants/line_separation = 10
+theme_override_styles/panel = SubResource("StyleBoxEmpty_78l40")
 script = ExtResource("6_aa7hk")
 
 [node name="Control3" type="ScrollContainer" parent="Main/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_78l40")
+follow_focus = true
+draw_focus_border = true
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
 script = ExtResource("7_dw106")
 
 [node name="Description" type="RichTextLabel" parent="Main/VBoxContainer/HBoxContainer2/Control3"]
@@ -276,7 +315,7 @@ libraries = {
 layout_mode = 2
 alignment = 1
 
-[node name="Control2" type="Button" parent="Main/VBoxContainer/HBoxContainer3"]
+[node name="About" type="Button" parent="Main/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0.0627451, 0.0627451, 0.0627451, 0.78431374)
@@ -285,6 +324,7 @@ theme_override_constants/outline_size = 4
 theme_override_fonts/font = SubResource("SystemFont_lsyyi")
 text = "A"
 flat = true
+script = ExtResource("12_00u2l")
 
 [node name="InfoBar" type="RichTextLabel" parent="Main/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
@@ -293,20 +333,22 @@ size_flags_horizontal = 3
 bbcode_enabled = true
 text = "
 "
-fit_content = true
+scroll_active = false
 scroll_following = true
 scroll_following_visible_characters = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control" type="Button" parent="Main/VBoxContainer/HBoxContainer3"]
+[node name="Settings" type="Button" parent="Main/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 focus_mode = 0
 text = "⚙"
 flat = true
 icon_alignment = 1
+script = ExtResource("12_00u2l")
 
-[node name="Settings" type="Panel" parent="."]
+[node name="Settings" type="Panel" parent="." groups=["Settings"]]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -315,12 +357,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_dw106")
+script = ExtResource("12_g2g78")
 
-[node name="About" type="Panel" parent="."]
-visible = false
+[node name="Close" type="Button" parent="Settings"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 8.0
+offset_bottom = 8.0
+shortcut = SubResource("Shortcut_tij5r")
+script = ExtResource("14_mxtae")
+
+[node name="About" type="Panel" parent="." groups=["About"]]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g2g78")
+script = ExtResource("13_tlsao")
+
+[node name="Close" type="Button" parent="About"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+shortcut = SubResource("Shortcut_tij5r")
+script = ExtResource("14_mxtae")
 
 [node name="2DO" type="Node" parent="."]
 script = ExtResource("10_o06a2")

@@ -103,8 +103,13 @@ libraries = {
 [node name="RTL" type="RichTextLabel" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 mouse_filter = 1
 fit_content = true
+scroll_active = false
 autowrap_mode = 0
+context_menu_enabled = true
 vertical_alignment = 1
+selection_enabled = true
+drag_and_drop_selection_enabled = false
 script = ExtResource("1_alrff")
